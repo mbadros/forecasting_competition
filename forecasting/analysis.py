@@ -1,10 +1,17 @@
 import pandas as pd
 import numpy as np
 from copy import deepcopy
+import sys
+from pathlib import Path
 
-# forecasting_directory = Path(__file__).parent.resolve()
+# base_dir = Path(sys.path[-1])
+base_dir = Path('~/Documents/PycharmProjects/forecasting_competition')
 
-with pd.ExcelFile("../forecasting/data/forecasting2024.xlsx", "openpyxl") as xl_file:
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', 100)
+pd.set_option('display.width', 1000)
+
+with pd.ExcelFile(base_dir.joinpath("forecasting/data/forecasting2024.xlsx"), "openpyxl") as xl_file:
     data = pd.read_excel(
         xl_file,
         sheet_name="Master",
@@ -178,10 +185,9 @@ evts_resolved = {
     "Lai Ching-te": True,  # 2024-01-13
     "Apple TV+": False,  # 2024-01-14
     'CRBN vs XOP': True,  # 2024-02-01
-}
 # 'Australian heat',  # 2024-02-15
 # 'New Delhi air quality',  # 2024-03-01
-# 'EU tax haven blacklist',  # 2024-03-08
+    'EU tax haven blacklist': True,  # 2024-03-08
 # 'Millennium Prize',  # 2024-03-15
 # 'India spaceflight',  # 2024-03-31
 # 'WWE Universal Champion',  # 2024-04-07
@@ -206,14 +212,37 @@ evts_resolved = {
 # 'Gladiator 2 vs Beetlejuice 2 on Rotten Tomatoes',  # 2024-11-26
 # 'Highest COL cities in Asia',  # 2024-12-01
 # 'Formula 1 champion'  # 2024-12-08
+}
 
 resolved_bools.update(evts_resolved)
 
-leader_median = (
-    data.drop(["Category", "Date", "Event"], axis=1)
-    .apply(lambda x: calc_score(x, resolved_bools, data_w_median["median"]))
-    .sort_values()
-)
+entrants_matrix = data.drop(['Category', 'Date', 'Event'], axis=1)
+
+median_prob_true = (resolved_bools * 100).fillna(data_w_median['median'])/100
+median_prob_false = 1 - median_prob_true
+
+entrant_false = entrants_matrix.mul(entrants_matrix)
+entrants_true = (100 - entrants_matrix).mul(100 - entrants_matrix)
+
+# pd.concat({
+#     'points_if_true': entrants_true['Katie Bruce'],
+#     'points_if_false': entrant_false['Katie Bruce'],
+#     'median_prob_true': median_prob_true,
+#     'median_prob_false': median_prob_false,
+#     'points_for_false': entrant_false['Katie Bruce'].mul(median_prob_false, axis=0),
+#     'ponts_for_true': entrants_true['Katie Bruce'].mul(median_prob_true, axis=0),
+#     'points_act_or_exp': (
+#         entrant_false.mul(median_prob_false, axis=0) +
+#         entrants_true.mul(median_prob_true, axis=0))['Katie Bruce']
+# }, axis=1)
+
+leader_median = ((
+        entrant_false.mul(median_prob_false, axis=0) +
+        entrants_true.mul(median_prob_true, axis=0))
+                 .sum()
+                 .sort_values())
+
+
 leader_resolved_only = (
     data.drop(["Category", "Date", "Event"], axis=1)
     .apply(lambda x: calc_score(x, resolved_bools, pd.NA))
