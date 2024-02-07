@@ -9,14 +9,18 @@ if len(sys.argv) == 1:
     base_dir = Path(__file__).parent.absolute()
 else:
     # Interactive
-    base_dir = Path.home().joinpath('Documents/PycharmProjects/forecasting_competition/forecasting')
+    base_dir = Path.home().joinpath(
+        "Documents/PycharmProjects/forecasting_competition/forecasting"
+    )
     print(base_dir)
 
-pd.set_option('display.max_columns', None)
-pd.set_option('display.max_rows', 100)
-pd.set_option('display.width', 1000)
+pd.set_option("display.max_columns", None)
+pd.set_option("display.max_rows", 100)
+pd.set_option("display.width", 1000)
 
-with pd.ExcelFile(base_dir.joinpath("data/forecasting2024.xlsx"), "openpyxl") as xl_file:
+with pd.ExcelFile(
+    base_dir.joinpath("data/forecasting2024.xlsx"), "openpyxl"
+) as xl_file:
     data = pd.read_excel(
         xl_file,
         sheet_name="Master",
@@ -189,42 +193,42 @@ resolved_bools = pd.Series(pd.NA, index=data.index)
 evts_resolved = {
     "Lai Ching-te": True,  # 2024-01-13
     "Apple TV+": False,  # 2024-01-14
-    'CRBN vs XOP': True,  # 2024-02-01
-# 'Australian heat',  # 2024-02-15
-# 'New Delhi air quality',  # 2024-03-01
-    'EU tax haven blacklist': True,  # 2024-03-08
-# 'Millennium Prize',  # 2024-03-15
-# 'India spaceflight',  # 2024-03-31
-# 'WWE Universal Champion',  # 2024-04-07
-# 'Harden on LA Clippers',  # 2024-04-14
-# 'HRH Prince Harry?',  # 2024-05-01
-# 'Lyft acquired',  # 2024-05-15
-# 'X (Twitter) renamed?',  # 2024-06-01
-# 'US governors resign',  # 2024-06-15
-# 'Israeli PM Netanyahu',  # 2024-06-30
-# 'US SCt justice resigns',  # 2024-07-15
-# 'US artist auction price record',  # 2024-08-01
-# 'US House Speaker Johnson',  # 2024-08-20
-# 'Jets QB Aaron Rodgers',  # 2024-09-05
-# 'US and China Olympic medal counts',  # 2024-09-08
-# 'Top 10 hotels worldwide',  # 2024-09-20
-# 'NY Mets better record than NY Yankees',  # 2024-09-29
-# 'Non-US winner of economics Nobel',  # 2024-10-10
-# 'US Congressman felony conviction',  # 2024-10-15
-# 'Zuckerberg tweets',  # 2024-10-25
-# 'Neither Trump nor Biden elected',  # 2024-11-06
-# 'Tesla recalls',  # 2024-11-15
-# 'Gladiator 2 vs Beetlejuice 2 on Rotten Tomatoes',  # 2024-11-26
-# 'Highest COL cities in Asia',  # 2024-12-01
-# 'Formula 1 champion'  # 2024-12-08
+    "CRBN vs XOP": True,  # 2024-02-01
+    # 'Australian heat',  # 2024-02-15
+    # 'New Delhi air quality',  # 2024-03-01
+    "EU tax haven blacklist": True,  # 2024-03-08
+    # 'Millennium Prize',  # 2024-03-15
+    # 'India spaceflight',  # 2024-03-31
+    # 'WWE Universal Champion',  # 2024-04-07
+    # 'Harden on LA Clippers',  # 2024-04-14
+    # 'HRH Prince Harry?',  # 2024-05-01
+    # 'Lyft acquired',  # 2024-05-15
+    # 'X (Twitter) renamed?',  # 2024-06-01
+    # 'US governors resign',  # 2024-06-15
+    # 'Israeli PM Netanyahu',  # 2024-06-30
+    # 'US SCt justice resigns',  # 2024-07-15
+    # 'US artist auction price record',  # 2024-08-01
+    # 'US House Speaker Johnson',  # 2024-08-20
+    # 'Jets QB Aaron Rodgers',  # 2024-09-05
+    # 'US and China Olympic medal counts',  # 2024-09-08
+    # 'Top 10 hotels worldwide',  # 2024-09-20
+    # 'NY Mets better record than NY Yankees',  # 2024-09-29
+    # 'Non-US winner of economics Nobel',  # 2024-10-10
+    # 'US Congressman felony conviction',  # 2024-10-15
+    # 'Zuckerberg tweets',  # 2024-10-25
+    # 'Neither Trump nor Biden elected',  # 2024-11-06
+    # 'Tesla recalls',  # 2024-11-15
+    # 'Gladiator 2 vs Beetlejuice 2 on Rotten Tomatoes',  # 2024-11-26
+    # 'Highest COL cities in Asia',  # 2024-12-01
+    # 'Formula 1 champion'  # 2024-12-08
 }
 
 resolved_bools.update(evts_resolved)
 
-entrants_matrix = data.drop(['Category', 'Date', 'Event'], axis=1)
+entrants_matrix = data.drop(["Category", "Date", "Event"], axis=1)
 
 # resolved events are 0 or 1; other events are median
-median_prob_true = (resolved_bools * 100).fillna(data_w_median['median'])/100
+median_prob_true = (resolved_bools * 100).fillna(data_w_median["median"]) / 100
 median_prob_false = 1 - median_prob_true
 
 entrant_false = entrants_matrix.mul(entrants_matrix)
@@ -242,11 +246,14 @@ entrants_true = (100 - entrants_matrix).mul(100 - entrants_matrix)
 #         entrants_true.mul(median_prob_true, axis=0))['Katie Bruce']
 # }, axis=1)
 
-leader_median = ((
-        entrant_false.mul(median_prob_false, axis=0) +
-        entrants_true.mul(median_prob_true, axis=0))
-                 .sum()
-                 .sort_values())
+leader_median = (
+    (
+        entrant_false.mul(median_prob_false, axis=0)
+        + entrants_true.mul(median_prob_true, axis=0)
+    )
+    .sum()
+    .sort_values()
+)
 
 
 leader_resolved_only = (
