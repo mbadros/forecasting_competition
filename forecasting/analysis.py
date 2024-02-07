@@ -4,14 +4,19 @@ from copy import deepcopy
 import sys
 from pathlib import Path
 
-# base_dir = Path(sys.path[-1])
-base_dir = Path('~/Documents/PycharmProjects/forecasting_competition')
+if len(sys.argv) == 1:
+    # Not interactive
+    base_dir = Path(__file__).parent.absolute()
+else:
+    # Interactive
+    base_dir = Path.home().joinpath('Documents/PycharmProjects/forecasting_competition/forecasting')
+    print(base_dir)
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', 100)
 pd.set_option('display.width', 1000)
 
-with pd.ExcelFile(base_dir.joinpath("forecasting/data/forecasting2024.xlsx"), "openpyxl") as xl_file:
+with pd.ExcelFile(base_dir.joinpath("data/forecasting2024.xlsx"), "openpyxl") as xl_file:
     data = pd.read_excel(
         xl_file,
         sheet_name="Master",
@@ -218,6 +223,7 @@ resolved_bools.update(evts_resolved)
 
 entrants_matrix = data.drop(['Category', 'Date', 'Event'], axis=1)
 
+# resolved events are 0 or 1; other events are median
 median_prob_true = (resolved_bools * 100).fillna(data_w_median['median'])/100
 median_prob_false = 1 - median_prob_true
 
@@ -249,7 +255,7 @@ leader_resolved_only = (
     .sort_values()
 )
 
-with pd.ExcelWriter("../forecasting/results/rankings.xlsx") as f:
+with pd.ExcelWriter(base_dir.joinpath("results/rankings.xlsx")) as f:
     sorted_high_correl_by_player.to_excel(f, sheet_name="Top Correl by Player")
     top_5_correls_by_player.to_excel(f, sheet_name="Top 5 Correls by Player")
     correls_to_median.to_excel(f, sheet_name="Correl to Median")
