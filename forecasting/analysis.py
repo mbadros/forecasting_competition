@@ -194,8 +194,8 @@ evts_resolved = {
     "Lai Ching-te": True,  # 2024-01-13
     "Apple TV+": False,  # 2024-01-14
     "CRBN vs XOP": True,  # 2024-02-01
-    # 'Australian heat',  # 2024-02-15
-    # 'New Delhi air quality',  # 2024-03-01
+    'Australian heat': False,  # 2024-02-15
+    'New Delhi air quality': False,  # 2024-03-01
     "EU tax haven blacklist": True,  # 2024-03-08
     # 'Millennium Prize',  # 2024-03-15
     # 'India spaceflight',  # 2024-03-31
