@@ -197,12 +197,12 @@ evts_resolved = {
     'Australian heat': False,  # 2024-02-15
     'New Delhi air quality': False,  # 2024-03-01
     "EU tax haven blacklist": True,  # 2024-03-08
-    # 'Millennium Prize',  # 2024-03-15
-    # 'India spaceflight',  # 2024-03-31
-    # 'WWE Universal Champion',  # 2024-04-07
-    # 'Harden on LA Clippers',  # 2024-04-14
-    # 'HRH Prince Harry?',  # 2024-05-01
-    # 'Lyft acquired',  # 2024-05-15
+    'Millennium Prize': False,  # 2024-03-15
+    'India spaceflight': False,  # 2024-03-31
+    'WWE Universal Champion': True,  # 2024-04-07
+    'Harden on LA Clippers': True,  # 2024-04-14
+    'HRH Prince Harry?': False,  # 2024-05-01
+    'Lyft acquired': False,  # 2024-05-15
     # 'X (Twitter) renamed?',  # 2024-06-01
     # 'US governors resign',  # 2024-06-15
     # 'Israeli PM Netanyahu',  # 2024-06-30
