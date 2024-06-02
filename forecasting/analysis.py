@@ -203,7 +203,7 @@ evts_resolved = {
     'Harden on LA Clippers': True,  # 2024-04-14
     'HRH Prince Harry?': False,  # 2024-05-01
     'Lyft acquired': False,  # 2024-05-15
-    # 'X (Twitter) renamed?',  # 2024-06-01
+    'X (Twitter) renamed?': False,  # 2024-06-01
     # 'US governors resign',  # 2024-06-15
     # 'Israeli PM Netanyahu',  # 2024-06-30
     # 'US SCt justice resigns',  # 2024-07-15
