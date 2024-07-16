@@ -204,9 +204,9 @@ evts_resolved = {
     'HRH Prince Harry?': False,  # 2024-05-01
     'Lyft acquired': False,  # 2024-05-15
     'X (Twitter) renamed?': False,  # 2024-06-01
-    # 'US governors resign',  # 2024-06-15
-    # 'Israeli PM Netanyahu',  # 2024-06-30
-    # 'US SCt justice resigns',  # 2024-07-15
+    'US governors resign': False,  # 2024-06-15
+    'Israeli PM Netanyahu': True,  # 2024-06-30
+    'US SCt justice resigns': False,  # 2024-07-15
     # 'US artist auction price record',  # 2024-08-01
     # 'US House Speaker Johnson',  # 2024-08-20
     # 'Jets QB Aaron Rodgers',  # 2024-09-05
@@ -214,7 +214,7 @@ evts_resolved = {
     # 'Top 10 hotels worldwide',  # 2024-09-20
     # 'NY Mets better record than NY Yankees',  # 2024-09-29
     # 'Non-US winner of economics Nobel',  # 2024-10-10
-    # 'US Congressman felony conviction',  # 2024-10-15
+    'US Congressman felony conviction': True,  # 2024-10-15
     # 'Zuckerberg tweets',  # 2024-10-25
     # 'Neither Trump nor Biden elected',  # 2024-11-06
     # 'Tesla recalls',  # 2024-11-15
