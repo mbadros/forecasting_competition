@@ -207,8 +207,8 @@ evts_resolved = {
     'US governors resign': False,  # 2024-06-15
     'Israeli PM Netanyahu': True,  # 2024-06-30
     'US SCt justice resigns': False,  # 2024-07-15
-    # 'US artist auction price record',  # 2024-08-01
-    # 'US House Speaker Johnson',  # 2024-08-20
+    'US artist auction price record': False,  # 2024-08-01
+    'US House Speaker Johnson': True,  # 2024-08-20
     # 'Jets QB Aaron Rodgers',  # 2024-09-05
     # 'US and China Olympic medal counts',  # 2024-09-08
     # 'Top 10 hotels worldwide',  # 2024-09-20
