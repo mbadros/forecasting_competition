@@ -209,8 +209,8 @@ evts_resolved = {
     'US SCt justice resigns': False,  # 2024-07-15
     'US artist auction price record': False,  # 2024-08-01
     'US House Speaker Johnson': True,  # 2024-08-20
-    # 'Jets QB Aaron Rodgers',  # 2024-09-05
-    # 'US and China Olympic medal counts',  # 2024-09-08
+    'Jets QB Aaron Rodgers': True,  # 2024-09-05
+    'US and China Olympic medal counts': False,  # 2024-09-08
     # 'Top 10 hotels worldwide',  # 2024-09-20
     # 'NY Mets better record than NY Yankees',  # 2024-09-29
     # 'Non-US winner of economics Nobel',  # 2024-10-10
